@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MenuNavegacion from './components/Navbar';
 import Inicio from './components/Inicio';
 import Busqueda from './components/Busqueda';
+import Registro from './components/Registro';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route path="/" element={<Inicio />} />
           
           <Route path="/busqueda" element={<Busqueda />} />
-          <Route path="/registro" element={<div className="text-center mt-5"><h2>Página de Registro (En construcción)</h2></div>} />
+          <Route path="/registro" element={<Registro />} />
           <Route path="/recibir" element={<div className="text-center mt-5"><h2>Página de Alertas (En construcción)</h2></div>} />
         </Routes>
       </main>

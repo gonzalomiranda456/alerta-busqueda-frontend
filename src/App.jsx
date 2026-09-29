@@ -9,22 +9,24 @@ import Inicio from './components/Inicio';
 import Busqueda from './components/Busqueda';
 import Registro from './components/Registro';
 import Recibir from './components/Recibir';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   return (
-    <Router>
-      <MenuNavegacion />
-
-      <main style={{ marginTop: '90px' }}>
-        <Routes>
-          <Route path="/" element={<Inicio />} />
+    <HelmetProvider>
+      <Router>
+        <MenuNavegacion />
           
-          <Route path="/busqueda" element={<Busqueda />} />
-          <Route path="/registro" element={<Registro />} />
-          <Route path="/recibir" element={<Recibir />} />
-        </Routes>
-      </main>
-    </Router>
+        <main style={{ marginTop: '90px' }}>
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/busqueda" element={<Busqueda />} />
+            <Route path="/registro" element={<Registro />} />
+            <Route path="/recibir" element={<Recibir />} />
+          </Routes>
+        </main>
+      </Router>
+    </HelmetProvider>
   )
 }
 

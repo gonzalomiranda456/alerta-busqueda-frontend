@@ -1,8 +1,14 @@
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 
 const Registro = () => {
     return (
         <Container className="py-5">
+            <Helmet>
+                <title>Registrar Caso | Alerta Búsqueda</title>
+                <meta name="description" content="Formulario para registrar una nueva búsqueda de una persona desaparecida. Los datos serán verificados por un administrador." />
+            </Helmet>
+            
             <Row className="justify-content-center">
                 <Col md={8} lg={6}>
                     <Card className="shadow-sm border-0">

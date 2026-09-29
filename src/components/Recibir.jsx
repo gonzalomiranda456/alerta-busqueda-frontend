@@ -1,8 +1,14 @@
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 
 const Recibir = () => {
     return (
         <Container className="py-5">
+            <Helmet>
+                <title>Recibir Alertas | Alerta Búsqueda</title>
+                <meta name="description" content="Suscribite a nuestro sistema de alertas para recibir notificaciones sobre búsquedas prioritarias en tu provincia o ciudad." />
+            </Helmet>
+            
             <Row className="justify-content-center">
                 <Col md={8} lg={6}>
                     <Card className="shadow-sm border-0 bg-light">

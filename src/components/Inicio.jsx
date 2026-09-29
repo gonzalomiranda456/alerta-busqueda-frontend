@@ -1,9 +1,14 @@
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 
 const Inicio = () => {
     return (
         <Container className="py-5">
-            {/* SECCIÓN HERO */}
+            <Helmet>
+                <title>Inicio | Alerta Búsqueda</title>
+                <meta name="description" content="Plataforma de difusión y centralización de búsquedas de personas desaparecidas en Argentina. Tu colaboración hace la diferencia." />
+            </Helmet>
+            
             <Row className="align-items-center mb-5 text-center text-md-start">
                 <Col md={6} className="mb-4 mb-md-0">
                     <h1 className="fw-bold" style={{ color: '#0a2f6b', fontSize: '3rem' }}>

@@ -1,4 +1,5 @@
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 
 const Recibir = () => {
     return (

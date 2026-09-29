@@ -1,8 +1,14 @@
 import { Container, Row, Col, Card, Form, Button, InputGroup } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 
 const Busqueda = () => {
     return (
         <Container className="py-5">
+            <Helmet>
+                <title>Búsquedas Activas | Alerta Búsqueda</title>
+                <meta name="description" content="Revisá el listado de personas desaparecidas y búsquedas activas. Aportá datos para ayudar a encontrarlos." />
+            </Helmet>
+            
             <h2 className="text-center fw-bold mb-4" style={{ color: '#0a2f6b' }}>Búsquedas Activas</h2>
             
             {/* SECCIÓN DEL BUSCADOR */}

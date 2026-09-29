@@ -9,6 +9,7 @@ import Inicio from './components/Inicio';
 import Busqueda from './components/Busqueda';
 import Registro from './components/Registro';
 import Recibir from './components/Recibir';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   return (

@@ -8,6 +8,7 @@ const Registro = () => {
                 <title>Registrar Caso | Alerta Búsqueda</title>
                 <meta name="description" content="Formulario para registrar una nueva búsqueda de una persona desaparecida. Los datos serán verificados por un administrador." />
             </Helmet>
+            
             <Row className="justify-content-center">
                 <Col md={8} lg={6}>
                     <Card className="shadow-sm border-0">

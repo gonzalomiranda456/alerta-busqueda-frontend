@@ -8,6 +8,7 @@ import MenuNavegacion from './components/Navbar';
 import Inicio from './components/Inicio';
 import Busqueda from './components/Busqueda';
 import Registro from './components/Registro';
+import Recibir from './components/Recibir';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           
           <Route path="/busqueda" element={<Busqueda />} />
           <Route path="/registro" element={<Registro />} />
-          <Route path="/recibir" element={<div className="text-center mt-5"><h2>Página de Alertas (En construcción)</h2></div>} />
+          <Route path="/recibir" element={<Recibir />} />
         </Routes>
       </main>
     </Router>

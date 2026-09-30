@@ -10,6 +10,7 @@ import Busqueda from './components/Busqueda';
 import Registro from './components/Registro';
 import Recibir from './components/Recibir';
 import { HelmetProvider } from 'react-helmet-async';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/recibir" element={<Recibir />} />
           </Routes>
         </main>
+        <Footer />
       </Router>
     </HelmetProvider>
   )

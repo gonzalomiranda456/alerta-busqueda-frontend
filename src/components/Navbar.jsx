@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
+import { Navbar, Container, Nav, Offcanvas, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const MenuNavegacion = () => {
@@ -10,24 +10,34 @@ const MenuNavegacion = () => {
 
 return (
         <>
-            <Navbar bg="white" fixed="top" className="shadow-sm px-3 py-1">
-                <Container fluid>
-                    <button 
-                        className="btn btn-link border-0 text-primary text-decoration-none p-0" 
-                        type="button" 
-                        onClick={abrirMenu}
-                    >
-                        <span className="fs-3">☰ <span className="fs-6 fw-bold ms-1">Menú</span></span>
-                    </button>
-                    
-                    {/* Logo */}
-                    <Navbar.Brand as={Link} to="/" className="mx-auto py-0">
-                        <img 
-                            src="/img/logo-encabezado2 (2).png" 
-                            alt="Logo de Alerta Búsqueda" 
-                            style={{ height: '55px', width: 'auto', objectFit: 'contain' }} 
-                        />
+            <Navbar bg="white" expand="lg" fixed="top" className="shadow-sm py-3">
+                <Container>
+                    <Navbar.Brand as={Link} to="/" className="d-flex align-items-center text-decoration-none fs-4 fw-bolder">
+                        <img src="/img/Logo_Blanco.png" alt="Logo" width="45" height="45" className="me-2" />
+                        <span style={{ color: '#00bfff' }}>Alerta</span>
+                        <span className="text-dark ms-1">Búsqueda</span>
                     </Navbar.Brand>
+
+                    <Navbar.Toggle aria-controls="menu-principal" className="border-0 shadow-none" />
+
+                    <Navbar.Collapse id="menu-principal">
+                        <Nav className="ms-auto text-center mt-3 mt-lg-0">
+                            <Nav.Link as={Link} to="/" className="nav-link-custom fw-bold px-3 text-dark">Inicio</Nav.Link>
+        
+                            <NavDropdown title="Pages" id="pages-dropdown" className="nav-link-custom fw-bold px-3 text-dark">
+                                <NavDropdown.Item as={Link} to="/busqueda">Búsquedas Activas</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/registro">Registrar Desaparecido</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/recibir">Recibir Alertas</NavDropdown.Item>
+                             </NavDropdown>
+
+                            <Nav.Link as={Link} to="/registro-usuario" className="nav-link-custom fw-bold px-3 text-dark">Registro</Nav.Link>
+                            <Nav.Link as={Link} to="/preguntas" className="nav-link-custom fw-bold px-3 text-dark">Preguntas generales</Nav.Link>
+                        </Nav>
+
+                        <div className="d-flex justify-content-center align-items-center ms-lg-4 mt-3 mt-lg-0">
+                            <i className="bi bi-search fs-4 text-dark search-icon-custom"></i>
+                        </div>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
 

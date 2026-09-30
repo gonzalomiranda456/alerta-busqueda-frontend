@@ -13,7 +13,7 @@ return (
             <Navbar bg="white" expand="lg" fixed="top" className="shadow-sm py-3">
                 <Container>
                     <Navbar.Brand as={Link} to="/" className="d-flex align-items-center text-decoration-none fs-4 fw-bolder">
-                        <img src="/Logo_Blanco.png" alt="Logo" width="45" height="45" className="me-2" />
+                        <img src="/img/Logo_Blanco.png" alt="Logo" width="45" height="45" className="me-2" />
                         <span style={{ color: '#00bfff' }}>Alerta</span>
                         <span className="text-dark ms-1">Búsqueda</span>
                     </Navbar.Brand>

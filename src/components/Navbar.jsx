@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
+import { Navbar, Container, Nav, Offcanvas, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const MenuNavegacion = () => {
@@ -21,19 +21,20 @@ return (
                     <Navbar.Toggle aria-controls="menu-principal" className="border-0 shadow-none" />
 
                     <Navbar.Collapse id="menu-principal">
-                        <Nav className="mx-auto text-center mt-3 mt-lg-0">
+                        <Nav className="ms-auto text-center mt-3 mt-lg-0">
                             <Nav.Link as={Link} to="/" className="nav-link-custom fw-bold px-3 text-dark">Inicio</Nav.Link>
-                        
+        
                             <NavDropdown title="Pages" id="pages-dropdown" className="nav-link-custom fw-bold px-3 text-dark">
                                 <NavDropdown.Item as={Link} to="/busqueda">Búsquedas Activas</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/registro">Registrar Desaparecido</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/recibir">Recibir Alertas</NavDropdown.Item>
-                            </NavDropdown>
+                             </NavDropdown>
 
-                            <Nav.Link as={Link} to="/registro-general" className="nav-link-custom fw-bold px-3 text-dark">Registro</Nav.Link>
+                            <Nav.Link as={Link} to="/registro-usuario" className="nav-link-custom fw-bold px-3 text-dark">Registro</Nav.Link>
                             <Nav.Link as={Link} to="/preguntas" className="nav-link-custom fw-bold px-3 text-dark">Preguntas generales</Nav.Link>
                         </Nav>
 
-                        <div className="d-flex justify-content-center mt-3 mt-lg-0 ms-lg-3">
+                        <div className="d-flex justify-content-center align-items-center ms-lg-4 mt-3 mt-lg-0">
                             <i className="bi bi-search fs-4 text-dark search-icon-custom"></i>
                         </div>
                     </Navbar.Collapse>

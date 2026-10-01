@@ -24,13 +24,11 @@ const Recibir = () => {
                             </div>
 
                             <Form>
-                                {/* Nombre */}
                                 <Form.Group className="mb-3" controlId="nombreSuscriptor">
                                     <Form.Label className="fw-bold">Nombre completo</Form.Label>
                                     <Form.Control type="text" placeholder="Ej: María López" required />
                                 </Form.Group>
 
-                                {/* Medio de contacto (Email / Teléfono) */}
                                 <Row className="mb-3">
                                     <Form.Group as={Col} sm={6} className="mb-3 mb-sm-0" controlId="emailSuscriptor">
                                         <Form.Label className="fw-bold">Correo electrónico</Form.Label>
@@ -43,7 +41,6 @@ const Recibir = () => {
                                     </Form.Group>
                                 </Row>
 
-                                {/* Zona de interés */}
                                 <Form.Group className="mb-4" controlId="zonaSuscriptor">
                                     <Form.Label className="fw-bold">Zona de interés (Provincia/Ciudad)</Form.Label>
                                     <Form.Select required>
@@ -53,11 +50,9 @@ const Recibir = () => {
                                         <option value="cordoba">Córdoba</option>
                                         <option value="santa_fe">Santa Fe</option>
                                         <option value="salta">Salta</option>
-                                        {/* Podés agregar más opciones si querés */}
                                     </Form.Select>
                                 </Form.Group>
 
-                                {/* Checkbox de términos */}
                                 <Form.Group className="mb-4" controlId="terminos">
                                     <Form.Check 
                                         type="checkbox" 
@@ -66,7 +61,6 @@ const Recibir = () => {
                                     />
                                 </Form.Group>
 
-                                {/* Botón enviar */}
                                 <div className="d-grid">
                                     <Button variant="primary" size="lg" type="submit" style={{ backgroundColor: '#0a2f6b', border: 'none' }}>
                                         Activar Alertas

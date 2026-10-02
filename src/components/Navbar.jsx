@@ -34,7 +34,7 @@ const MenuNavegacion = () => {
               </NavDropdown>
               <Nav.Link onClick={handleShow} style={{ cursor: 'pointer' }} className="nav-link-custom fw-bold px-3 text-dark">Registro</Nav.Link>
 
-              <Nav.Link as={Link} to="/preguntas" className="nav-link-custom fw-bold px-3 text-dark">Preguntas generales</Nav.Link>
+              <Nav.Link href="/#preguntas" className="nav-link-custom fw-bold px-3 text-dark">Preguntas generales</Nav.Link>
             </Nav>
 
             <div className="d-flex justify-content-center align-items-center ms-lg-4 mt-3 mt-lg-0">

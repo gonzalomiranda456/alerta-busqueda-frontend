@@ -1,7 +1,7 @@
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 
-const Registro = () => {
+const RegistroDesaparecido = () => {
     return (
         <Container className="py-5">
             <Helmet>
@@ -74,4 +74,4 @@ const Registro = () => {
     );
 };
 
-export default Registro;
+export default RegistroDesaparecido;

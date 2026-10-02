@@ -1,8 +1,45 @@
 import { Container, Row, Col, Card, Accordion, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import TarjetaCaso from '../components/TarjetaCaso';
+import { useRef } from 'react';
 
 const Inicio = () => {
+  const scrollRef = useRef(null);
+  const casosRecientes = [
+    {
+      id: 1,
+      nombre: "Juan Pérez",
+      ubicacion: "San Miguel de Tucumán",
+      fecha: "25/09/2026",
+      edad: 34,
+      imagen: "https://via.placeholder.com/400x300?text=Foto+Juan"
+    },
+    {
+      id: 2,
+      nombre: "María Gómez",
+      ubicacion: "Córdoba Capital",
+      fecha: "28/09/2026",
+      edad: 22,
+      imagen: "https://via.placeholder.com/400x300?text=Foto+Maria"
+    },
+    {
+      id: 3,
+      nombre: "Carlos López",
+      ubicacion: "Rosario, Santa Fe",
+      fecha: "01/10/2026",
+      edad: 45,
+      imagen: "https://via.placeholder.com/400x300?text=Foto+Carlos"
+    },
+    {
+      id: 4,
+      nombre: "Leandro Diaz",
+      ubicacion: "CABA",
+      fecha: "01/10/2026",
+      edad: 35,
+      imagen: "https://via.placeholder.com/400x300?text=Foto+Carlos"
+    },
+  ];
   return (
     <>
       <img src="/img/Logo_Fondo_blanco.png" alt="Fondo" className="fondo-marca-agua" />
@@ -20,46 +57,46 @@ const Inicio = () => {
           </h1>
         </div>
 
-        <div className="mb-5">
+        <div className="mb-5 position-relative">
           <h2 className="fw-bold mb-4" style={{ color: '#0a2f6b' }}>Búsquedas Recientes</h2>
-          <Row>
-            {/* Ficha 1 */}
-            <Col md={6} lg={4} className="mb-4">
-              <Card className="shadow-sm border-0 h-100">
-                <Card.Img variant="top" src="https://via.placeholder.com/400x300?text=Foto+Desaparecido" />
-                <Card.Body>
-                  <Card.Title className="fw-bold">Juan Pérez</Card.Title>
-                  <Card.Text>
-                    <strong>Visto por última vez:</strong> San Miguel de Tucumán<br />
-                    <strong>Fecha:</strong> 25/09/2026<br />
-                    <strong>Edad:</strong> 34 años
-                  </Card.Text>
-                  <Button as={Link} to="/busqueda" variant="outline-primary" className="w-100 fw-bold">Ver Detalles</Button>
-                </Card.Body>
-              </Card>
-            </Col>
+
+          <Button
+            variant="light"
+            className="position-absolute top-50 start-0 translate-middle-y z-3 shadow rounded-circle d-none d-md-flex justify-content-center align-items-center"
+            onClick={() => scrollRef.current.scrollBy({ left: -400, behavior: 'smooth' })}
+            style={{ width: '45px', height: '45px', marginLeft: '-20px' }}
+          >
+            <i className="bi bi-chevron-left fs-5"></i>
+          </Button>
+
+          <Row className="flex-nowrap overflow-auto py-2 mx-0" style={{ scrollbarWidth: 'none' }} ref={scrollRef}>
+            {casosRecientes.map((caso) => (
+              <TarjetaCaso
+                key={caso.id}
+                nombre={caso.nombre}
+                ubicacion={caso.ubicacion}
+                fecha={caso.fecha}
+                edad={caso.edad}
+                imagen={caso.imagen}
+              />
+            ))}
 
             <Col md={6} lg={4} className="mb-4">
-              <Card className="shadow-sm border-0 h-100">
-                <Card.Img variant="top" src="https://via.placeholder.com/400x300?text=Foto+Desaparecida" />
-                <Card.Body>
-                  <Card.Title className="fw-bold">María Gómez</Card.Title>
-                  <Card.Text>
-                    <strong>Visto por última vez:</strong> Córdoba Capital<br />
-                    <strong>Fecha:</strong> 28/09/2026<br />
-                    <strong>Edad:</strong> 22 años
-                  </Card.Text>
-                  <Button as={Link} to="/busqueda" variant="outline-primary" className="w-100 fw-bold">Ver Detalles</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col md={12} lg={4} className="mb-4 d-flex align-items-center justify-content-center">
-              <Button as={Link} to="/busqueda" variant="primary" size="lg" className="px-5 py-3 shadow-sm rounded-pill" style={{ backgroundColor: '#0a2f6b', border: 'none' }}>
-                Ver todas las búsquedas <i className="bi bi-arrow-right ms-2"></i>
+              <Button as={Link} to="/busqueda" variant="primary" className="w-100 h-100 shadow-sm d-flex flex-column justify-content-center align-items-center" style={{ backgroundColor: '#0a2f6b', border: 'none', minHeight: '350px', borderRadius: 'var(--bs-border-radius)' }}>
+                <span className="fs-4 fw-bold mb-2">Ver todas las búsquedas</span>
+                <i className="bi bi-arrow-right fs-1"></i>
               </Button>
             </Col>
           </Row>
+
+          <Button
+            variant="light"
+            className="position-absolute top-50 end-0 translate-middle-y z-3 shadow rounded-circle d-none d-md-flex justify-content-center align-items-center"
+            onClick={() => scrollRef.current.scrollBy({ left: 400, behavior: 'smooth' })}
+            style={{ width: '45px', height: '45px', marginRight: '-20px' }}
+          >
+            <i className="bi bi-chevron-right fs-5"></i>
+          </Button>
         </div>
 
         <div className="mb-5">

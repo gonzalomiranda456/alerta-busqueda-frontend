@@ -3,75 +3,87 @@ import { Helmet } from 'react-helmet-async';
 
 const Recibir = () => {
     return (
-        <Container className="py-5">
-            <Helmet>
-                <title>Recibir Alertas | Alerta Búsqueda</title>
-                <meta name="description" content="Suscribite a nuestro sistema de alertas para recibir notificaciones sobre búsquedas prioritarias en tu provincia o ciudad." />
-            </Helmet>
-            
-            <Row className="justify-content-center">
-                <Col md={8} lg={6}>
-                    <Card className="shadow-sm border-0 bg-light">
-                        <Card.Body className="p-4 p-md-5">
-                            <div className="text-center mb-4">
-                                <i className="bi bi-bell-fill text-primary" style={{ fontSize: '3rem' }}></i>
-                                <h2 className="fw-bold mt-2" style={{ color: '#0a2f6b' }}>
-                                    Suscribirse a las Alertas
-                                </h2>
-                                <p className="text-secondary">
-                                    Recibí notificaciones inmediatas sobre nuevas búsquedas directamente en tu correo electrónico o celular.
-                                </p>
-                            </div>
+        <>
+            <img src="/img/Logo_Fondo_Blanco.png" alt="Fondo" className="fondo-marca-agua" />
 
-                            <Form>
-                                <Form.Group className="mb-3" controlId="nombreSuscriptor">
-                                    <Form.Label className="fw-bold">Nombre completo</Form.Label>
-                                    <Form.Control type="text" placeholder="Ej: María López" required />
-                                </Form.Group>
-
-                                <Row className="mb-3">
-                                    <Form.Group as={Col} sm={6} className="mb-3 mb-sm-0" controlId="emailSuscriptor">
-                                        <Form.Label className="fw-bold">Correo electrónico</Form.Label>
-                                        <Form.Control type="email" placeholder="tucorreo@ejemplo.com" required />
-                                    </Form.Group>
-
-                                    <Form.Group as={Col} sm={6} controlId="telefonoSuscriptor">
-                                        <Form.Label className="fw-bold">Número de celular</Form.Label>
-                                        <Form.Control type="tel" placeholder="Código de área + Número" />
-                                    </Form.Group>
-                                </Row>
-
-                                <Form.Group className="mb-4" controlId="zonaSuscriptor">
-                                    <Form.Label className="fw-bold">Zona de interés (Provincia/Ciudad)</Form.Label>
-                                    <Form.Select required>
-                                        <option value="">Seleccioná tu provincia...</option>
-                                        <option value="tucuman">Tucumán</option>
-                                        <option value="buenos_aires">Buenos Aires</option>
-                                        <option value="cordoba">Córdoba</option>
-                                        <option value="santa_fe">Santa Fe</option>
-                                        <option value="salta">Salta</option>
-                                    </Form.Select>
-                                </Form.Group>
-
-                                <Form.Group className="mb-4" controlId="terminos">
-                                    <Form.Check 
-                                        type="checkbox" 
-                                        label="Acepto recibir notificaciones y comparto mis datos según la política de privacidad." 
-                                        required
-                                    />
-                                </Form.Group>
-
-                                <div className="d-grid">
-                                    <Button variant="primary" size="lg" type="submit" style={{ backgroundColor: '#0a2f6b', border: 'none' }}>
-                                        Activar Alertas
-                                    </Button>
+            <Container className="py-5" style={{ minHeight: '80vh', position: 'relative', zIndex: 1, marginTop: '60px' }}>
+                <Helmet>
+                    <title>Recibir Alertas | Alerta Búsqueda</title>
+                    <meta name="description" content="Suscribite a nuestro sistema de alertas para recibir notificaciones sobre búsquedas prioritarias en tu provincia o ciudad." />
+                </Helmet>
+                
+                <Row className="justify-content-center">
+                    <Col md={8} lg={6}>
+                        <Card className="shadow-sm border-0 bg-light" style={{ borderRadius: '15px' }}>
+                            <Card.Body className="p-4 p-md-5">
+                                <div className="text-center mb-4">
+                                    <i className="bi bi-bell-fill text-primary" style={{ fontSize: '3rem' }}></i>
+                                    <h2 className="fw-bold mt-2" style={{ color: '#0a2f6b' }}>
+                                        Suscribirse a las Alertas
+                                    </h2>
+                                    <p className="text-secondary">
+                                        Recibí notificaciones inmediatas sobre nuevas búsquedas directamente en tu correo electrónico o celular.
+                                    </p>
                                 </div>
-                            </Form>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+
+                                <Form>
+                                    <Form.Group className="mb-3" controlId="nombreSuscriptor">
+                                        <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Nombre completo</Form.Label>
+                                        <Form.Control type="text" placeholder="Ej: María López" required style={{ borderRadius: '8px' }} />
+                                    </Form.Group>
+
+                                    <Row className="mb-3">
+                                        <Form.Group as={Col} sm={6} className="mb-3 mb-sm-0" controlId="emailSuscriptor">
+                                            <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Correo electrónico</Form.Label>
+                                            <Form.Control type="email" placeholder="tucorreo@ejemplo.com" required style={{ borderRadius: '8px' }} />
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} sm={6} controlId="telefonoSuscriptor">
+                                            <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Número de celular</Form.Label>
+                                            <Form.Control type="tel" placeholder="Código de área + Número" style={{ borderRadius: '8px' }} />
+                                        </Form.Group>
+                                    </Row>
+
+                                    <Form.Group className="mb-4" controlId="zonaSuscriptor">
+                                        <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Zona de interés (Provincia/Ciudad)</Form.Label>
+                                        <Form.Select required style={{ borderRadius: '8px' }}>
+                                            <option value="">Seleccioná tu provincia...</option>
+                                            <option value="tucuman">Tucumán</option>
+                                            <option value="buenos_aires">Buenos Aires</option>
+                                            <option value="cordoba">Córdoba</option>
+                                            <option value="santa_fe">Santa Fe</option>
+                                            <option value="salta">Salta</option>
+                                        </Form.Select>
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-4" controlId="terminos">
+                                        <Form.Check 
+                                            type="checkbox" 
+                                            label="Acepto recibir notificaciones y comparto mis datos según la política de privacidad." 
+                                            required
+                                        />
+                                    </Form.Group>
+
+                                    <div className="d-grid mt-5">
+                                        <Button 
+                                            variant="primary" 
+                                            size="lg" 
+                                            type="submit" 
+                                            className="rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center"
+                                            style={{ backgroundColor: '#0a2f6b', border: 'none', transition: 'transform 0.2s ease' }}
+                                            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+                                            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                        >
+                                            <i className="bi bi-bell-fill me-2 fs-5"></i> Activar Alertas
+                                        </Button>
+                                    </div>
+                                </Form>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        </>
     );
 };
 

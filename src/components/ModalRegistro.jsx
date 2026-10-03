@@ -1,43 +1,113 @@
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Nav, InputGroup} from 'react-bootstrap';
+import { useState } from 'react';
 
 const ModalRegistro = ({ show, handleClose }) => {
-    return (
-        <Modal show={show} onHide={handleClose} centered backdrop="static">
-            <Modal.Header closeButton style={{ backgroundColor: '#e6f2ff', borderBottom: '2px solid #0a2f6b' }}>
-                <Modal.Title className="fw-bold" style={{ color: '#0a2f6b' }}>
-                    Crear Cuenta de Usuario
-                </Modal.Title>
-            </Modal.Header>
-            
-            <Modal.Body style={{ backgroundColor: '#f4f9ff' }}>
-                <Form>
-                    <Form.Group className="mb-3" controlId="formNombre">
-                        <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Nombre completo</Form.Label>
-                        <Form.Control type="text" placeholder="Ingresá tu nombre" />
-                    </Form.Group>
+  const [esLogin, setEsLogin] = useState(true);
+  const [mostrarPass, setMostrarPass] = useState(false);
 
+  return (
+    <Modal show={show} onHide={handleClose} centered backdrop="static">
+      <Modal.Header closeButton style={{ backgroundColor: '#e6f2ff', borderBottom: 'none' }}>
+        <Modal.Title className="fw-bold w-100 text-center" style={{ color: '#0a2f6b' }}>
+          {esLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
+        </Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body style={{ backgroundColor: '#f4f9ff' }}>
+                <div className="d-flex mx-auto mb-4" style={{ 
+                    borderRadius: '50px', 
+                    overflow: 'hidden', 
+                    width: 'fit-content', 
+                    border: '2px solid #0a2f6b' 
+                }}>
+                    <Button 
+                        variant="light"
+                        onClick={() => setEsLogin(true)}
+                        style={{ 
+                            borderRadius: 0, 
+                            backgroundColor: esLogin ? '#0a2f6b' : 'transparent',
+                            color: esLogin ? 'white' : '#0a2f6b',
+                            border: 'none',
+                            borderRight: '2px solid #0a2f6b',
+                            padding: '0.5rem 1.5rem',
+                            fontWeight: 'bold',
+                            width: '150px'
+                        }}
+                    >
+                        Iniciar Sesión
+                    </Button>
+                    <Button 
+                        variant="light"
+                        onClick={() => setEsLogin(false)}
+                        style={{ 
+                            borderRadius: 0, 
+                            backgroundColor: !esLogin ? '#0a2f6b' : 'transparent',
+                            color: !esLogin ? 'white' : '#0a2f6b',
+                            border: 'none',
+                            padding: '0.5rem 1.5rem',
+                            fontWeight: 'bold',
+                            width: '150px'
+                        }}
+                    >
+                        Registrarse
+                    </Button>
+                </div>
+
+        <Form>
+          {/* Campos que SOLO aparecen en el Registro */}
+                    {!esLogin && (
+                        <>
+                            <Form.Group className="mb-3" controlId="formNombre">
+                                <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Nombre completo</Form.Label>
+                                <Form.Control type="text" placeholder="Ingresá tu nombre y apellido" />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="formDni">
+                                <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>DNI</Form.Label>
+                                <Form.Control type="number" placeholder="Sin puntos ni espacios" />
+                            </Form.Group>
+                        </>
+                    )}
+
+                    {/* El Correo aparece en AMBOS (Se usa para registrarse y para iniciar sesión) */}
                     <Form.Group className="mb-3" controlId="formEmail">
                         <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Correo electrónico</Form.Label>
                         <Form.Control type="email" placeholder="ejemplo@correo.com" />
                     </Form.Group>
 
+                    {/* La contraseña queda intacta */}
                     <Form.Group className="mb-3" controlId="formPassword">
                         <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Contraseña</Form.Label>
-                        <Form.Control type="password" placeholder="Mínimo 8 caracteres" />
+                        <InputGroup>
+                            <Form.Control 
+                                type={mostrarPass ? "text" : "password"} 
+                                placeholder={esLogin ? "Tu contraseña" : "Mínimo 8 caracteres"} 
+                            />
+                            <Button 
+                                variant="outline-secondary"
+                                onMouseDown={() => setMostrarPass(true)}   
+                                onMouseUp={() => setMostrarPass(false)}    
+                                onMouseLeave={() => setMostrarPass(false)} 
+                                onTouchStart={() => setMostrarPass(true)}  
+                                onTouchEnd={() => setMostrarPass(false)}   
+                            >
+                                <i className={`bi bi-eye${mostrarPass ? '-slash' : ''}`}></i>
+                            </Button>
+                        </InputGroup>
                     </Form.Group>
-                </Form>
-            </Modal.Body>
-            
-            <Modal.Footer style={{ backgroundColor: '#f4f9ff', borderTop: 'none' }}>
-                <Button variant="outline-danger" onClick={handleClose}>
-                    Cancelar
-                </Button>
-                <Button variant="primary" style={{ backgroundColor: '#0a2f6b', border: 'none' }}>
-                    Registrarme
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    );
+        </Form>
+      </Modal.Body>
+
+      <Modal.Footer style={{ backgroundColor: '#f4f9ff', borderTop: 'none' }} className="d-flex justify-content-between">
+        <Button variant="outline-danger" onClick={handleClose}>
+          Cancelar
+        </Button>
+        <Button variant="primary" style={{ backgroundColor: '#0a2f6b', border: 'none', padding: '0.5rem 2rem' }}>
+          {esLogin ? 'Ingresar' : 'Registrarme'}
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 };
 
 export default ModalRegistro;

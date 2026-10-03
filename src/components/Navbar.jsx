@@ -32,7 +32,7 @@ const MenuNavegacion = () => {
                 <NavDropdown.Item as={Link} to="/cargar-caso">Cargar Caso</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/recibir">Recibir Alertas</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link onClick={handleShow} style={{ cursor: 'pointer' }} className="nav-link-custom fw-bold px-3 text-dark">Registro</Nav.Link>
+              <Nav.Link onClick={handleShow} style={{ cursor: 'pointer' }} className="nav-link-custom fw-bold px-3 text-dark">Ingresar</Nav.Link>
 
               <Nav.Link href="/#preguntas" className="nav-link-custom fw-bold px-3 text-dark">Preguntas generales</Nav.Link>
             </Nav>

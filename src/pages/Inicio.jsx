@@ -37,7 +37,7 @@ const Inicio = () => {
       ubicacion: "CABA",
       fecha: "01/10/2026",
       edad: 35,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Carlos"
+      imagen: "https://via.placeholder.com/400x300?text=Foto+Leandro"
     },
   ];
   return (
@@ -99,7 +99,7 @@ const Inicio = () => {
           </Button>
         </div>
 
-        <div className="mb-5">
+        <div className="mb-5" id="preguntas">
           <h2 className="fw-bold mb-4" style={{ color: '#0a2f6b' }}>Preguntas Frecuentes</h2>
           <Accordion className="shadow-sm">
             <Accordion.Item eventKey="0">

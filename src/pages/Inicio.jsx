@@ -42,7 +42,7 @@ const Inicio = () => {
   ];
   return (
     <>
-      <img src="/img/Logo_Fondo_blanco.png" alt="Fondo" className="fondo-marca-agua" />
+      <img src="/img/Logo_Fondo_Blanco.png" alt="Fondo" className="fondo-marca-agua" />
 
       <Container className="py-5" style={{ minHeight: '80vh' }}>
         <Helmet>
@@ -71,14 +71,15 @@ const Inicio = () => {
 
           <Row className="flex-nowrap overflow-auto py-2 mx-0" style={{ scrollbarWidth: 'none' }} ref={scrollRef}>
             {casosRecientes.map((caso) => (
-              <TarjetaCaso
-                key={caso.id}
-                nombre={caso.nombre}
-                ubicacion={caso.ubicacion}
-                fecha={caso.fecha}
-                edad={caso.edad}
-                imagen={caso.imagen}
-              />
+              <div key={caso.id} style={{ minWidth: '320px', maxWidth: '350px' }} className="me-3 mb-4">
+                <TarjetaCaso
+                  nombre={caso.nombre}
+                  ubicacion={caso.ubicacion}
+                  fecha={caso.fecha}
+                  edad={caso.edad}
+                  imagen={caso.imagen}
+                />
+              </div>
             ))}
 
             <Col md={6} lg={4} className="mb-4">

@@ -768,3 +768,16 @@ body {
     max-width: 600px;
     pointer-events: none; 
 }
+:root {
+  --fuente-titulos: 'Montserrat', sans-serif;
+  --fuente-textos: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--fuente-textos);
+  -webkit-font-smoothing: antialiased; 
+}
+
+h1, h2, h3, h4, h5, h6, .modal-title, .navbar-brand {
+  font-family: var(--fuente-titulos);
+}

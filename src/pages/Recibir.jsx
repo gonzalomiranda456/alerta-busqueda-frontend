@@ -1,7 +1,28 @@
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 
 const Recibir = () => {
+    const datosZonas = {
+        tucuman: ["San Miguel de Tucumán", "Yerba Buena", "Tafí Viejo", "Concepción", "Banda del Río Salí"],
+        buenos_aires: ["CABA", "La Plata", "Mar del Plata", "Bahía Blanca", "Quilmes"],
+        cordoba: ["Córdoba Capital", "Villa Carlos Paz", "Río Cuarto", "San Francisco"],
+        santa_fe: ["Rosario", "Santa Fe Capital", "Rafaela", "Venado Tuerto"],
+        salta: ["Salta Capital", "Cafayate", "Tartagal", "Orán"]
+    };
+
+    const [provincia, setProvincia] = useState('');
+    const [ciudadesDisponibles, setCiudadesDisponibles] = useState([]);
+    const [ciudad, setCiudad] = useState('');
+
+    useEffect(() => {
+        if (provincia !== '') {
+            setCiudadesDisponibles(datosZonas[provincia]);
+        } else {
+            setCiudadesDisponibles([]);
+        }
+        setCiudad(''); 
+    }, [provincia]); 
     return (
         <>
             <img src="/img/Logo_Fondo_Blanco.png" alt="Fondo" className="fondo-marca-agua" />
@@ -44,17 +65,42 @@ const Recibir = () => {
                                         </Form.Group>
                                     </Row>
 
-                                    <Form.Group className="mb-4" controlId="zonaSuscriptor">
-                                        <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Zona de interés (Provincia/Ciudad)</Form.Label>
-                                        <Form.Select required style={{ borderRadius: '8px' }}>
-                                            <option value="">Seleccioná tu provincia...</option>
-                                            <option value="tucuman">Tucumán</option>
-                                            <option value="buenos_aires">Buenos Aires</option>
-                                            <option value="cordoba">Córdoba</option>
-                                            <option value="santa_fe">Santa Fe</option>
-                                            <option value="salta">Salta</option>
-                                        </Form.Select>
-                                    </Form.Group>
+                                    <Row className="mb-4">
+                                        <Form.Group as={Col} sm={6} className="mb-3 mb-sm-0" controlId="provinciaSuscriptor">
+                                            <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Provincia</Form.Label>
+                                            <Form.Select 
+                                                required 
+                                                style={{ borderRadius: '8px' }}
+                                                value={provincia}
+                                                onChange={(e) => setProvincia(e.target.value)}
+                                            >
+                                                <option value="">Seleccioná tu provincia...</option>
+                                                <option value="tucuman">Tucumán</option>
+                                                <option value="buenos_aires">Buenos Aires</option>
+                                                <option value="cordoba">Córdoba</option>
+                                                <option value="santa_fe">Santa Fe</option>
+                                                <option value="salta">Salta</option>
+                                            </Form.Select>
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} sm={6} controlId="ciudadSuscriptor">
+                                            <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Ciudad / Localidad</Form.Label>
+                                            <Form.Select 
+                                                required 
+                                                style={{ borderRadius: '8px' }}
+                                                value={ciudad}
+                                                onChange={(e) => setCiudad(e.target.value)}
+                                                disabled={ciudadesDisponibles.length === 0}
+                                            >
+                                                <option value="">
+                                                    {provincia === '' ? 'Primero elegí una provincia' : 'Seleccioná tu ciudad...'}
+                                                </option>
+                                                {ciudadesDisponibles.map((ciudadItem, index) => (
+                                                    <option key={index} value={ciudadItem}>{ciudadItem}</option>
+                                                ))}
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </Row>
 
                                     <Form.Group className="mb-4" controlId="terminos">
                                         <Form.Check 

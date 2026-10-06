@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import TarjetaCaso from '../components/TarjetaCaso';
+import BotonSubir from '../components/BotonSubir';
 
 const Busqueda = () => {
   const casosBusqueda = [

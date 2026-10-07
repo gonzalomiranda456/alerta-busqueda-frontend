@@ -12,24 +12,24 @@ const Inicio = () => {
       nombre: "Juan Pérez",
       ubicacion: "San Miguel de Tucumán",
       fecha: "25/09/2026",
-      edad: 34,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Juan"
+      edad: 50,
+      imagen: "/img/juan.jpg"
     },
     {
       id: 2,
       nombre: "María Gómez",
       ubicacion: "Córdoba Capital",
       fecha: "28/09/2026",
-      edad: 22,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Maria"
+      edad: 60,
+      imagen: "/img/maria.jpg"
     },
     {
       id: 3,
       nombre: "Carlos López",
       ubicacion: "Rosario, Santa Fe",
       fecha: "01/10/2026",
-      edad: 45,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Carlos"
+      edad: 30,
+      imagen: "/img/carlos.jpg"
     },
     {
       id: 4,
@@ -37,7 +37,7 @@ const Inicio = () => {
       ubicacion: "CABA",
       fecha: "01/10/2026",
       edad: 35,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Leandro"
+      imagen: ""
     },
   ];
   return (

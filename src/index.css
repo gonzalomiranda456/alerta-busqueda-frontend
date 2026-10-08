@@ -667,30 +667,6 @@ html, body {
   width: 100%;
 }
 
-.tarjeta-beneficio {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  background-color: transparent;
-}
-
-.tarjeta-beneficio:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 20px rgba(17, 0, 255, 0.527);
-  background-color: #ffffff;
-}
-
-.tarjeta-animada {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.tarjeta-animada:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 20px rgba(17, 0, 255, 0.527) !important;
-}
-
 .titulo-inicio {
   font-size: clamp(1.2rem, 4vw, 2.5rem); 
   font-weight: 800;

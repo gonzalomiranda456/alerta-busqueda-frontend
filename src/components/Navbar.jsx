@@ -36,9 +36,9 @@ const MenuNavegacion = () => {
               <Nav.Link href="/#preguntas" className="nav-link-custom fw-bold px-3 text-dark">Preguntas generales</Nav.Link>
             </Nav>
 
-            <div className="d-flex justify-content-center align-items-center ms-lg-4 mt-3 mt-lg-0">
-              <i className="bi bi-search fs-4 text-dark search-icon-custom"></i>
-            </div>
+            <Link to="/busqueda" className="d-flex justify-content-center align-items-center ms-lg-4 mt-3 mt-lg-0 text-decoration-none">
+              <i className="bi bi-search fs-4 text-dark search-icon-custom" style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.target.style.transform = 'scale(1.1)'} onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}></i>
+            </Link>
           </Navbar.Collapse>
         </Container>
         <ModalRegistro show={showModal} handleClose={handleClose} />

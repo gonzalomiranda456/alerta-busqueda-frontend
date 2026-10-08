@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const TarjetaCaso = ({ nombre, ubicacion, fecha, edad, imagen }) => {
     return (
-        <Card className="shadow-sm border-0 h-100" style={{ backgroundColor: '#e6f2ff' }}>
+        <Card className="shadow-sm border border-2 border-dark h-100" style={{ backgroundColor: '#e6f2ff', borderRadius: '12px', overflow: 'hidden' }}>
             <Card.Img
                 variant="top"
                 src={imagen || "/img/silueta.jpg"}
@@ -19,7 +19,7 @@ const TarjetaCaso = ({ nombre, ubicacion, fecha, edad, imagen }) => {
                     <strong>Edad:</strong> {edad} años
                 </Card.Text>
 
-                <Button as={Link} to="/busqueda" variant="outline-primary" className="w-100 fw-bold mt-auto">
+                <Button as={Link} to="/busqueda" variant="primary" className="w-100 fw-bold mt-auto border border-2 border-dark">
                     Ver Detalles
                 </Button>
             </Card.Body>

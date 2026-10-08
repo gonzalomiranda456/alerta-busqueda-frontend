@@ -102,20 +102,22 @@ const Inicio = () => {
 
         <div className="mb-5" id="preguntas">
           <h2 className="fw-bold mb-4" style={{ color: '#0a2f6b' }}>Preguntas Frecuentes</h2>
-          <Accordion className="shadow-sm">
-            <Accordion.Item eventKey="0">
+          <Accordion>
+            <Accordion.Item eventKey="0" className="border border-2 border-dark mb-3 rounded overflow-hidden shadow-sm">
               <Accordion.Header className="fw-bold">¿Qué hago si un familiar desaparece?</Accordion.Header>
               <Accordion.Body>
                 Hacé la denuncia de inmediato en la comisaría más cercana, fiscalía o juzgado. <strong>No es necesario esperar 24 ni 48 horas.</strong> Llevá la foto más reciente que tengas.
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="1">
+            
+            <Accordion.Item eventKey="1" className="border border-2 border-dark mb-3 rounded overflow-hidden shadow-sm">
               <Accordion.Header className="fw-bold">¿Cómo puedo aportar información de forma anónima?</Accordion.Header>
               <Accordion.Body>
                 Podés comunicarte a la línea 134 del Ministerio de Seguridad para realizar denuncias completamente anónimas, o usar el formulario de contacto en la página de cada búsqueda.
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="2">
+            
+            <Accordion.Item eventKey="2" className="border border-2 border-dark mb-3 rounded overflow-hidden shadow-sm">
               <Accordion.Header className="fw-bold">¿Cualquiera puede registrar una búsqueda en la web?</Accordion.Header>
               <Accordion.Body>
                 Sí, a través de la sección "Registrar Desaparecido". Sin embargo, todos los datos ingresados son validados por un moderador antes de hacerse públicos para evitar información falsa.

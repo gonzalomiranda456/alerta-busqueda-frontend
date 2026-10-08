@@ -44,13 +44,13 @@ const RegistroDesaparecido = () => {
 
         <Row className="justify-content-center">
           <Col md={8} lg={6}>
-            <Card className="shadow-sm border-0" style={{ borderRadius: '15px' }}>
+            <Card className="shadow-sm border border-2 border-dark" style={{ borderRadius: '15px', backgroundColor: '#e6f2ff' }}>
               <Card.Body className="p-4 p-md-5">
                 <h2 className="text-center fw-bold mb-4" style={{ color: '#0a2f6b' }}>
                   Registrar nueva búsqueda
                 </h2>
 
-                <Alert variant="warning" className="d-flex align-items-center mb-4" style={{ borderRadius: '10px' }}>
+                <Alert variant="warning" className="d-flex align-items-center mb-4 border border-2 border-dark" style={{ borderRadius: '10px' }}>
                   <i className="bi bi-exclamation-triangle-fill fs-4 me-3 text-warning-emphasis"></i>
                   <div>
                     <strong>Aviso importante:</strong> Todos los casos registrados serán revisados. Tus borradores se guardan automáticamente.
@@ -64,6 +64,7 @@ const RegistroDesaparecido = () => {
                       type="text"
                       placeholder="Ej: Juan Pérez"
                       required
+                      className="border border-2 border-dark"
                       style={{ borderRadius: '8px' }}
                       value={formulario.nombre}
                       onChange={manejarCambio}
@@ -77,6 +78,7 @@ const RegistroDesaparecido = () => {
                         type="number"
                         placeholder="Ej: 35"
                         required
+                        className="border border-2 border-dark"
                         style={{ borderRadius: '8px' }}
                         value={formulario.edad}
                         onChange={manejarCambio}
@@ -88,6 +90,7 @@ const RegistroDesaparecido = () => {
                       <Form.Control
                         type="date"
                         required
+                        className="border border-2 border-dark"
                         style={{ borderRadius: '8px' }}
                         value={formulario.fecha}
                         onChange={manejarCambio}
@@ -101,6 +104,7 @@ const RegistroDesaparecido = () => {
                       type="text"
                       placeholder="Barrio, Ciudad, Provincia"
                       required
+                      className="border border-2 border-dark"
                       style={{ borderRadius: '8px' }}
                       value={formulario.ubicacion}
                       onChange={manejarCambio}
@@ -114,6 +118,7 @@ const RegistroDesaparecido = () => {
                       rows={4}
                       placeholder="Detalles sobre altura, contextura..."
                       required
+                      className="border border-2 border-dark"
                       style={{ borderRadius: '8px' }}
                       value={formulario.descripcion}
                       onChange={manejarCambio}
@@ -122,7 +127,12 @@ const RegistroDesaparecido = () => {
 
                   <Form.Group className="mb-4" controlId="foto">
                     <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Subir fotografía</Form.Label>
-                    <Form.Control type="file" accept="image/*" style={{ borderRadius: '8px' }} />
+                    <Form.Control
+                      type="file"
+                      accept="image/*"
+                      className="border border-2 border-dark"
+                      style={{ borderRadius: '8px' }}
+                    />
                   </Form.Group>
 
                   <div className="d-grid mt-5">
@@ -130,8 +140,8 @@ const RegistroDesaparecido = () => {
                       variant="primary"
                       size="lg"
                       type="submit"
-                      className="rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center"
-                      style={{ backgroundColor: '#0a2f6b', border: 'none', transition: 'transform 0.2s ease' }}
+                      className="rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center border border-2 border-dark"
+                      style={{ backgroundColor: '#0a2f6b', transition: 'transform 0.2s ease' }}
                       onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
                       onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                     >

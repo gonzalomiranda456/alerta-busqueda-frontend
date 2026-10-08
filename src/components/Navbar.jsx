@@ -13,7 +13,7 @@ const MenuNavegacion = () => {
 
   return (
     <>
-      <Navbar bg="white" expand="lg" fixed="top" className="shadow-sm py-3">
+      <Navbar bg="white" expand="lg" fixed="top" className="shadow-sm py-3 border-bottom border-3 border-dark">
         <Container>
           <Navbar.Brand as={Link} to="/" className="d-flex align-items-center text-decoration-none fs-4 fw-bolder">
             <img src="/img/Logo_Blanco.png" alt="Logo" width="45" height="45" className="me-2" />

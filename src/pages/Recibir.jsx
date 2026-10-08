@@ -35,7 +35,7 @@ const Recibir = () => {
                 
                 <Row className="justify-content-center">
                     <Col md={8} lg={6}>
-                        <Card className="shadow-sm border-0 bg-light" style={{ borderRadius: '15px' }}>
+                        <Card className="shadow-sm border border-2 border-dark" style={{ borderRadius: '15px', backgroundColor: '#e6f2ff' }}>
                             <Card.Body className="p-4 p-md-5">
                                 <div className="text-center mb-4">
                                     <i className="bi bi-bell-fill text-primary" style={{ fontSize: '3rem' }}></i>
@@ -50,18 +50,18 @@ const Recibir = () => {
                                 <Form>
                                     <Form.Group className="mb-3" controlId="nombreSuscriptor">
                                         <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Nombre completo</Form.Label>
-                                        <Form.Control type="text" placeholder="Ej: María López" required style={{ borderRadius: '8px' }} />
+                                        <Form.Control type="text" placeholder="Ej: María López" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} />
                                     </Form.Group>
 
                                     <Row className="mb-3">
                                         <Form.Group as={Col} sm={6} className="mb-3 mb-sm-0" controlId="emailSuscriptor">
                                             <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Correo electrónico</Form.Label>
-                                            <Form.Control type="email" placeholder="tucorreo@ejemplo.com" required style={{ borderRadius: '8px' }} />
+                                            <Form.Control type="email" placeholder="tucorreo@ejemplo.com" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} />
                                         </Form.Group>
 
                                         <Form.Group as={Col} sm={6} controlId="telefonoSuscriptor">
                                             <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Número de celular</Form.Label>
-                                            <Form.Control type="tel" placeholder="Código de área + Número" style={{ borderRadius: '8px' }} />
+                                            <Form.Control type="tel" placeholder="Código de área + Número" className="border border-2 border-dark" style={{ borderRadius: '8px' }} />
                                         </Form.Group>
                                     </Row>
 
@@ -70,6 +70,7 @@ const Recibir = () => {
                                             <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Provincia</Form.Label>
                                             <Form.Select 
                                                 required 
+                                                className="border border-2 border-dark"
                                                 style={{ borderRadius: '8px' }}
                                                 value={provincia}
                                                 onChange={(e) => setProvincia(e.target.value)}
@@ -87,6 +88,7 @@ const Recibir = () => {
                                             <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Ciudad / Localidad</Form.Label>
                                             <Form.Select 
                                                 required 
+                                                className="border border-2 border-dark"
                                                 style={{ borderRadius: '8px' }}
                                                 value={ciudad}
                                                 onChange={(e) => setCiudad(e.target.value)}
@@ -115,8 +117,8 @@ const Recibir = () => {
                                             variant="primary" 
                                             size="lg" 
                                             type="submit" 
-                                            className="rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center"
-                                            style={{ backgroundColor: '#0a2f6b', border: 'none', transition: 'transform 0.2s ease' }}
+                                            className="rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center border border-2 border-dark"
+                                            style={{ backgroundColor: '#0a2f6b', transition: 'transform 0.2s ease' }}
                                             onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
                                             onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                         >

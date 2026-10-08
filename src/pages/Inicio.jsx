@@ -12,24 +12,24 @@ const Inicio = () => {
       nombre: "Juan Pérez",
       ubicacion: "San Miguel de Tucumán",
       fecha: "25/09/2026",
-      edad: 34,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Juan"
+      edad: 50,
+      imagen: "/img/juan.jpg"
     },
     {
       id: 2,
       nombre: "María Gómez",
       ubicacion: "Córdoba Capital",
       fecha: "28/09/2026",
-      edad: 22,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Maria"
+      edad: 60,
+      imagen: "/img/maria.jpg"
     },
     {
       id: 3,
       nombre: "Carlos López",
       ubicacion: "Rosario, Santa Fe",
       fecha: "01/10/2026",
-      edad: 45,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Carlos"
+      edad: 30,
+      imagen: "/img/carlos.jpg"
     },
     {
       id: 4,
@@ -37,7 +37,7 @@ const Inicio = () => {
       ubicacion: "CABA",
       fecha: "01/10/2026",
       edad: 35,
-      imagen: "https://via.placeholder.com/400x300?text=Foto+Leandro"
+      imagen: ""
     },
   ];
   return (
@@ -52,7 +52,7 @@ const Inicio = () => {
 
         <div className="text-center mb-5 mt-4">
           <h1 className="fw-bolder" style={{ color: '#0a2f6b', fontSize: '2.8rem', textShadow: '1px 1px 2px rgba(0,0,0,0.1)' }}>
-            Aproximadamente 10.000 Argentinos se pierden anualmente <br className="d-none d-md-block" />
+            alrededor 10.000 Argentinos se pierden anualmente <br className="d-none d-md-block" />
             <span style={{ color: '#00bfff' }}>tu ayuda puede marcar la diferencia.</span>
           </h1>
         </div>
@@ -102,25 +102,28 @@ const Inicio = () => {
 
         <div className="mb-5" id="preguntas">
           <h2 className="fw-bold mb-4" style={{ color: '#0a2f6b' }}>Preguntas Frecuentes</h2>
-          <Accordion className="shadow-sm">
-            <Accordion.Item eventKey="0">
+          <Accordion>
+            <Accordion.Item eventKey="0" className="border border-2 border-dark mb-3 rounded overflow-hidden shadow-sm">
               <Accordion.Header className="fw-bold">¿Qué hago si un familiar desaparece?</Accordion.Header>
               <Accordion.Body>
                 Hacé la denuncia de inmediato en la comisaría más cercana, fiscalía o juzgado. <strong>No es necesario esperar 24 ni 48 horas.</strong> Llevá la foto más reciente que tengas.
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="1">
+            
+            <Accordion.Item eventKey="1" className="border border-2 border-dark mb-3 rounded overflow-hidden shadow-sm">
               <Accordion.Header className="fw-bold">¿Cómo puedo aportar información de forma anónima?</Accordion.Header>
               <Accordion.Body>
                 Podés comunicarte a la línea 134 del Ministerio de Seguridad para realizar denuncias completamente anónimas, o usar el formulario de contacto en la página de cada búsqueda.
               </Accordion.Body>
             </Accordion.Item>
-            <Accordion.Item eventKey="2">
+            
+            <Accordion.Item eventKey="2" className="border border-2 border-dark mb-3 rounded overflow-hidden shadow-sm">
               <Accordion.Header className="fw-bold">¿Cualquiera puede registrar una búsqueda en la web?</Accordion.Header>
               <Accordion.Body>
                 Sí, a través de la sección "Registrar Desaparecido". Sin embargo, todos los datos ingresados son validados por un moderador antes de hacerse públicos para evitar información falsa.
               </Accordion.Body>
             </Accordion.Item>
+
           </Accordion>
         </div>
       </Container>

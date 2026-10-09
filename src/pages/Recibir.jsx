@@ -1,28 +1,75 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
+import axios from 'axios';
+import Swal from 'sweetalert2'; 
+
+const API_PROVINCIAS = import.meta.env.VITE_API_PROVINCIAS;
+const API_DEPARTAMENTOS = import.meta.env.VITE_API_DEPARTAMENTOS;
 
 const Recibir = () => {
-    const datosZonas = {
-        tucuman: ["San Miguel de Tucumán", "Yerba Buena", "Tafí Viejo", "Concepción", "Banda del Río Salí"],
-        buenos_aires: ["CABA", "La Plata", "Mar del Plata", "Bahía Blanca", "Quilmes"],
-        cordoba: ["Córdoba Capital", "Villa Carlos Paz", "Río Cuarto", "San Francisco"],
-        santa_fe: ["Rosario", "Santa Fe Capital", "Rafaela", "Venado Tuerto"],
-        salta: ["Salta Capital", "Cafayate", "Tartagal", "Orán"]
-    };
-
+    const [listaProvincias, setListaProvincias] = useState([]);
     const [provincia, setProvincia] = useState('');
-    const [ciudadesDisponibles, setCiudadesDisponibles] = useState([]);
-    const [ciudad, setCiudad] = useState('');
+    const [cargandoProvincias, setCargandoProvincias] = useState(true);
+    const [listaDepartamentos, setListaDepartamentos] = useState([]);
+    const [departamento, setDepartamento] = useState('');
+    const [cargandoDepartamentos, setCargandoDepartamentos] = useState(false);
 
     useEffect(() => {
-        if (provincia !== '') {
-            setCiudadesDisponibles(datosZonas[provincia]);
-        } else {
-            setCiudadesDisponibles([]);
+        const obtenerProvincias = async () => {
+            try {
+                const response = await axios.get(API_PROVINCIAS);
+                const provinciasOrdenadas = response.data.provincias.sort((a, b) => 
+                    a.nombre.localeCompare(b.nombre)
+                );
+                setListaProvincias(provinciasOrdenadas);
+                setCargandoProvincias(false);
+            } catch (error) {
+                console.error("Error API Provincias:", error);
+                setCargandoProvincias(false);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Hubo un error al cargar las provincias. Por favor, intentá más tarde.',
+                    confirmButtonColor: '#0a2f6b'
+                });
+            }
+        };
+        obtenerProvincias();
+    }, []);
+
+    useEffect(() => {
+        if (provincia === '') {
+            setListaDepartamentos([]);
+            setDepartamento('');
+            return;
         }
-        setCiudad(''); 
-    }, [provincia]); 
+
+        const obtenerDepartamentos = async () => {
+            setCargandoDepartamentos(true);
+            try {
+                const response = await axios.get(`${API_DEPARTAMENTOS}?provincia=${provincia}&max=500`);
+                
+                const departamentosOrdenados = response.data.departamentos.sort((a, b) => 
+                    a.nombre.localeCompare(b.nombre)
+                );
+                
+                setListaDepartamentos(departamentosOrdenados);
+                setCargandoDepartamentos(false);
+            } catch (error) {
+                console.error("Error API Departamentos:", error);
+                setCargandoDepartamentos(false);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de conexión',
+                    text: 'No pudimos cargar los departamentos de esta provincia.',
+                    confirmButtonColor: '#0a2f6b'
+                });
+            }
+        };
+        obtenerDepartamentos();
+    }, [provincia]);
+
     return (
         <>
             <img src="/img/Logo_Fondo_Blanco.png" alt="Fondo" className="fondo-marca-agua" />
@@ -74,31 +121,34 @@ const Recibir = () => {
                                                 style={{ borderRadius: '8px' }}
                                                 value={provincia}
                                                 onChange={(e) => setProvincia(e.target.value)}
+                                                disabled={cargandoProvincias}
                                             >
-                                                <option value="">Seleccioná tu provincia...</option>
-                                                <option value="tucuman">Tucumán</option>
-                                                <option value="buenos_aires">Buenos Aires</option>
-                                                <option value="cordoba">Córdoba</option>
-                                                <option value="santa_fe">Santa Fe</option>
-                                                <option value="salta">Salta</option>
+                                                <option value="">
+                                                    {cargandoProvincias ? 'Cargando provincias...' : 'Seleccioná tu provincia...'}
+                                                </option>
+                                                {listaProvincias.map((prov) => (
+                                                    <option key={prov.id} value={prov.nombre}>{prov.nombre}</option>
+                                                ))}
                                             </Form.Select>
                                         </Form.Group>
 
-                                        <Form.Group as={Col} sm={6} controlId="ciudadSuscriptor">
-                                            <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Ciudad / Localidad</Form.Label>
+                                        <Form.Group as={Col} sm={6} controlId="departamentoSuscriptor">
+                                            <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Departamento</Form.Label>
                                             <Form.Select 
                                                 required 
                                                 className="border border-2 border-dark"
                                                 style={{ borderRadius: '8px' }}
-                                                value={ciudad}
-                                                onChange={(e) => setCiudad(e.target.value)}
-                                                disabled={ciudadesDisponibles.length === 0}
+                                                value={departamento}
+                                                onChange={(e) => setDepartamento(e.target.value)}
+                                                disabled={cargandoDepartamentos || listaDepartamentos.length === 0}
                                             >
                                                 <option value="">
-                                                    {provincia === '' ? 'Primero elegí una provincia' : 'Seleccioná tu ciudad...'}
+                                                    {cargandoDepartamentos 
+                                                        ? 'Buscando departamentos...' 
+                                                        : (provincia === '' ? 'Primero elegí una provincia' : 'Seleccioná tu departamento...')}
                                                 </option>
-                                                {ciudadesDisponibles.map((ciudadItem, index) => (
-                                                    <option key={index} value={ciudadItem}>{ciudadItem}</option>
+                                                {listaDepartamentos.map((dep) => (
+                                                    <option key={dep.id} value={dep.nombre}>{dep.nombre}</option>
                                                 ))}
                                             </Form.Select>
                                         </Form.Group>

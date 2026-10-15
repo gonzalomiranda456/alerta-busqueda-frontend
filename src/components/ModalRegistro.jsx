@@ -1,9 +1,10 @@
-import { Modal, Button, Form, InputGroup } from 'react-bootstrap';
-import { useState } from 'react';
+import { Modal, Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const API_USUARIOS = import.meta.env.VITE_API_USUARIOS;
+const API_PROVINCIAS = import.meta.env.VITE_API_PROVINCIAS;
 const ModalRegistro = ({ show, handleClose }) => {
   const [esLogin, setEsLogin] = useState(true);
   const [mostrarPass, setMostrarPass] = useState(false);
@@ -12,6 +13,22 @@ const ModalRegistro = ({ show, handleClose }) => {
   const [dni, setDni] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [provincia, setProvincia] = useState('');
+  const [provincias, setProvincias] = useState([]);
+
+  useEffect(() => {
+    const cargarProvincias = async () => {
+      try {
+        const respuesta = await axios.get(API_PROVINCIAS);
+        const provinciasOrdenadas = respuesta.data.provincias.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        setProvincias(provinciasOrdenadas);
+      } catch (error) {
+        console.error("Error cargando provincias en el registro:", error);
+      }
+    };
+    cargarProvincias();
+  }, []);
+
   const manejarSubmit = async (e) => {
     e.preventDefault();
     setCargando(true);
@@ -39,6 +56,7 @@ const ModalRegistro = ({ show, handleClose }) => {
       }
     } else {
       let emailLibre = false;
+
       try {
         const chequeoEmail = await axios.get(`${API_USUARIOS}?email=${email}`);
         if (chequeoEmail.data.length > 0) {
@@ -62,9 +80,9 @@ const ModalRegistro = ({ show, handleClose }) => {
             dni: dni,
             email: email,
             password: password,
+            provincia: provincia, 
             rol: email.includes('admin') ? 'admin' : 'usuario'
           };
-
           const response = await axios.post(API_USUARIOS, nuevoUsuario);
 
           localStorage.setItem('sesionActiva', JSON.stringify(response.data));
@@ -105,10 +123,27 @@ const ModalRegistro = ({ show, handleClose }) => {
                 <Form.Control type="text" placeholder="Ingresá tu nombre y apellido" value={nombre} onChange={(e) => setNombre(e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, ''))} required={!esLogin} disabled={cargando} />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formDni">
-                <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>DNI</Form.Label>
-                <Form.Control type="text" inputMode="numeric" maxLength={8} placeholder="Sin puntos ni espacios" value={dni} onChange={(e) => setDni(e.target.value.replace(/[^0-9]/g, ''))} required={!esLogin} disabled={cargando} />
-              </Form.Group>
+              <Row className="mb-3">
+                <Form.Group as={Col} sm={6} controlId="formDni">
+                  <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>DNI</Form.Label>
+                  <Form.Control type="text" inputMode="numeric" maxLength={8} placeholder="Sin puntos" value={dni} onChange={(e) => setDni(e.target.value.replace(/[^0-9]/g, ''))} required={!esLogin} disabled={cargando} />
+                </Form.Group>
+
+                <Form.Group as={Col} sm={6} controlId="formProvincia">
+                  <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Tu Provincia</Form.Label>
+                  <Form.Select 
+                    value={provincia} 
+                    onChange={(e) => setProvincia(e.target.value)} 
+                    required={!esLogin} 
+                    disabled={cargando || provincias.length === 0}
+                  >
+                    <option value="">Seleccioná...</option>
+                    {provincias.map(prov => (
+                      <option key={prov.id} value={prov.nombre}>{prov.nombre}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+              </Row>
             </>
           )}
 

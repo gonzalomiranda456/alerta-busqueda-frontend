@@ -1,50 +1,33 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
+import axios from 'axios';
 import TarjetaCaso from '../components/TarjetaCaso';
 import BotonSubir from '../components/BotonSubir';
 
-const Busqueda = () => {
-  const casosBusqueda = [
-    {
-      id: 1,
-      nombre: "Juan Pérez",
-      ubicacion: "San Miguel de Tucumán",
-      fecha: "25/09/2026",
-      edad: 50,
-      imagen: "/img/juan.jpg"
-    },
-    {
-      id: 2,
-      nombre: "María Gómez",
-      ubicacion: "Córdoba Capital",
-      fecha: "28/09/2026",
-      edad: 60,
-      imagen: "/img/maria.jpg"
-    },
-    {
-      id: 3,
-      nombre: "Carlos López",
-      ubicacion: "Rosario, Santa Fe",
-      fecha: "01/10/2026",
-      edad: 30,
-      imagen: "/img/carlos.jpg"
-    }
-  ];
+const API_CASOS = import.meta.env.VITE_API_CASOS;
 
+const Busqueda = () => {
   const [casos, setCasos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [textoBusqueda, setTextoBusqueda] = useState('');
   const [resultadosFiltrados, setResultadosFiltrados] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setCasos(casosBusqueda);
-      setResultadosFiltrados(casosBusqueda);
+    const obtenerCasosPublicados = async () => {
+      setCargando(true);
+      try {
+        const response = await axios.get(`${API_CASOS}?estado=publicado`);
+        setCasos(response.data);
+        setResultadosFiltrados(response.data);
+      } catch (error) {
+        console.error("Error al traer los casos:", error);
+      }
       setCargando(false);
-    }, 1500);
-  }, []);
+    };
 
+    obtenerCasosPublicados();
+  }, []);
   useEffect(() => {
     const normalizarTexto = (texto) => {
       return texto
@@ -101,7 +84,7 @@ const Busqueda = () => {
           </div>
         ) : resultadosFiltrados.length === 0 ? (
           <div className="text-center my-5">
-            <h4 className="text-secondary">No se encontraron casos que coincidan con "{textoBusqueda}".</h4>
+            <h4 className="text-secondary">No se encontraron casos activos.</h4>
           </div>
         ) : (
           <Row className="g-4">
@@ -112,7 +95,7 @@ const Busqueda = () => {
                   ubicacion={caso.ubicacion}
                   fecha={caso.fecha}
                   edad={caso.edad}
-                  imagen={caso.imagen}
+                  imagen={caso.foto || "/img/Logo_Blanco.png"} 
                 />
               </Col>
             ))}

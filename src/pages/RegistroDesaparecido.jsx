@@ -5,36 +5,80 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const API_CASOS = import.meta.env.VITE_API_CASOS;
+const API_PROVINCIAS = import.meta.env.VITE_API_PROVINCIAS;
+const API_DEPARTAMENTOS = import.meta.env.VITE_API_DEPARTAMENTOS;
 
 const RegistroDesaparecido = () => {
   const sesionGuardada = localStorage.getItem('sesionActiva');
   const usuario = sesionGuardada ? JSON.parse(sesionGuardada) : null;
   const esAdmin = usuario?.rol === 'admin';
+  const estaLogueado = usuario !== null; 
   const [formulario, setFormulario] = useState({
     nombre: '',
     edad: '',
     fecha: '',
-    ubicacion: '',
+    provincia: '',  
+    departamento: '', 
     descripcion: ''
   });
+  
   const [cargandoEnvio, setCargandoEnvio] = useState(false);
+  const [provincias, setProvincias] = useState([]);
+  const [departamentos, setDepartamentos] = useState([]);
+  const [cargandoProvincias, setCargandoProvincias] = useState(true);
+  const [cargandoDepartamentos, setCargandoDepartamentos] = useState(false);
   useEffect(() => {
-    if (!esAdmin) {
+    if (!esAdmin && estaLogueado) {
+      const cargarProvincias = async () => {
+        try {
+          const respuesta = await axios.get(API_PROVINCIAS);
+          const provinciasOrdenadas = respuesta.data.provincias.sort((a, b) => a.nombre.localeCompare(b.nombre));
+          setProvincias(provinciasOrdenadas);
+        } catch (error) {
+          console.error("Error cargando provincias:", error);
+        }
+        setCargandoProvincias(false);
+      };
+      cargarProvincias();
+    }
+  }, [esAdmin, estaLogueado]);
+
+  useEffect(() => {
+    if (formulario.provincia) {
+      const cargarDepartamentos = async () => {
+        setCargandoDepartamentos(true);
+        try {
+          const respuesta = await axios.get(`${API_DEPARTAMENTOS}?provincia=${formulario.provincia}&max=1000`);
+          const deptosOrdenados = respuesta.data.departamentos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+          setDepartamentos(deptosOrdenados);
+        } catch (error) {
+          console.error("Error cargando departamentos:", error);
+        }
+        setCargandoDepartamentos(false);
+      };
+      cargarDepartamentos();
+    } else {
+      setDepartamentos([]);
+    }
+  }, [formulario.provincia]);
+
+  useEffect(() => {
+    if (!esAdmin && estaLogueado) {
       const borrador = localStorage.getItem('borradorRegistro');
       if (borrador) {
         setFormulario(JSON.parse(borrador));
       }
     }
-  }, [esAdmin]);
+  }, [esAdmin, estaLogueado]);
 
   useEffect(() => {
-    if (!esAdmin) {
+    if (!esAdmin && estaLogueado) {
       const temporizador = setTimeout(() => {
         localStorage.setItem('borradorRegistro', JSON.stringify(formulario));
       }, 1000);
       return () => clearTimeout(temporizador);
     }
-  }, [formulario, esAdmin]);
+  }, [formulario, esAdmin, estaLogueado]);
 
   const manejarCambio = (e) => {
     setFormulario({
@@ -42,13 +86,17 @@ const RegistroDesaparecido = () => {
       [e.target.id]: e.target.value
     });
   };
+
   const manejarSubmit = async (e) => {
     e.preventDefault();
+    if (!estaLogueado) return; 
+
     setCargandoEnvio(true);
 
     try {
       const nuevoCaso = {
         ...formulario,
+        ubicacion: `${formulario.departamento}, ${formulario.provincia}`,
         estado: 'pendiente',
         foto: '' 
       };
@@ -61,9 +109,8 @@ const RegistroDesaparecido = () => {
         text: 'El caso fue enviado a moderación. Un administrador lo revisará pronto.',
         confirmButtonColor: '#0a2f6b'
       });
-      setFormulario({ nombre: '', edad: '', fecha: '', ubicacion: '', descripcion: '' });
+      setFormulario({ nombre: '', edad: '', fecha: '', provincia: '', departamento: '', descripcion: '' });
       localStorage.removeItem('borradorRegistro');
-
     } catch (error) {
       console.error(error);
       Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo enviar el caso.' });
@@ -92,7 +139,6 @@ const RegistroDesaparecido = () => {
   const aprobarCaso = async (id, nombrePersona) => {
     try {
       await axios.put(`${API_CASOS}/${id}`, { estado: 'publicado' });
-      
       Swal.fire({ icon: 'success', title: '¡Aprobado!', text: `${nombrePersona} ahora es visible en la página principal.`, timer: 2000, showConfirmButton: false });
       setCasosPendientes(casosPendientes.filter(caso => caso.id !== id));
     } catch (error) {
@@ -130,11 +176,7 @@ const RegistroDesaparecido = () => {
                     <Card.Body>
                       <div className="d-flex justify-content-between align-items-start mb-2">
                         <h4 className="fw-bold text-dark m-0">{caso.nombre} <Badge bg="warning" text="dark" className="ms-2 fs-6">Pendiente</Badge></h4>
-                        <Button 
-                          variant="success" 
-                          className="fw-bold border border-2 border-dark"
-                          onClick={() => aprobarCaso(caso.id, caso.nombre)}
-                        >
+                        <Button variant="success" className="fw-bold border border-2 border-dark" onClick={() => aprobarCaso(caso.id, caso.nombre)}>
                           <i className="bi bi-check2-circle me-1"></i> Aprobar
                         </Button>
                       </div>
@@ -160,49 +202,90 @@ const RegistroDesaparecido = () => {
                     Registrar nueva búsqueda
                   </h2>
 
-                  <Alert variant="warning" className="d-flex align-items-center mb-4 border border-2 border-dark" style={{ borderRadius: '10px' }}>
-                    <i className="bi bi-exclamation-triangle-fill fs-4 me-3 text-warning-emphasis"></i>
-                    <div>
-                      <strong>Aviso importante:</strong> Todos los casos registrados serán revisados. Tus borradores se guardan automáticamente.
-                    </div>
-                  </Alert>
+                  {!estaLogueado ? (
+                    <Alert variant="warning" className="d-flex align-items-center mb-4 border border-2 border-dark shadow-sm" style={{ borderRadius: '10px' }}>
+                      <i className="bi bi-exclamation-triangle-fill fs-1 me-3 text-warning-emphasis"></i>
+                      <div>
+                        <strong className="d-block fs-5 text-dark">Acceso Restringido</strong>
+                        <span className="text-dark">No podés subir un caso sin estar registrado. Iniciá sesión o creá una cuenta para continuar.</span>
+                      </div>
+                    </Alert>
+                  ) : (
+                    <Alert variant="info" className="d-flex align-items-center mb-4 border border-2 border-dark" style={{ borderRadius: '10px' }}>
+                      <i className="bi bi-info-circle-fill fs-4 me-3 text-info-emphasis"></i>
+                      <div>
+                        <strong>Aviso importante:</strong> Todos los casos registrados serán revisados antes de publicarse.
+                      </div>
+                    </Alert>
+                  )}
 
                   <Form onSubmit={manejarSubmit}>
                     <Form.Group className="mb-3" controlId="nombre">
                       <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Nombre y Apellido</Form.Label>
-                      <Form.Control type="text" placeholder="Ej: Juan Pérez" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.nombre} onChange={manejarCambio} disabled={cargandoEnvio} />
+                      <Form.Control type="text" placeholder="Ej: Juan Pérez" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.nombre} onChange={manejarCambio} disabled={!estaLogueado || cargandoEnvio} />
                     </Form.Group>
 
                     <Row className="mb-3">
                       <Form.Group as={Col} sm={6} controlId="edad" className="mb-3 mb-sm-0">
                         <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Edad aproximada</Form.Label>
-                        <Form.Control type="number" placeholder="Ej: 35" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.edad} onChange={manejarCambio} disabled={cargandoEnvio} />
+                        <Form.Control type="number" placeholder="Ej: 35" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.edad} onChange={manejarCambio} disabled={!estaLogueado || cargandoEnvio} />
                       </Form.Group>
 
                       <Form.Group as={Col} sm={6} controlId="fecha">
                         <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Fecha de desaparición</Form.Label>
-                        <Form.Control type="date" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.fecha} onChange={manejarCambio} disabled={cargandoEnvio} />
+                        <Form.Control type="date" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.fecha} onChange={manejarCambio} disabled={!estaLogueado || cargandoEnvio} />
+                      </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                      <Form.Group as={Col} sm={6} controlId="provincia">
+                        <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Provincia</Form.Label>
+                        <Form.Select 
+                          required 
+                          className="border border-2 border-dark" 
+                          style={{ borderRadius: '8px' }} 
+                          value={formulario.provincia} 
+                          onChange={manejarCambio} 
+                          disabled={!estaLogueado || cargandoEnvio || cargandoProvincias}
+                        >
+                          <option value="">{cargandoProvincias ? 'Cargando...' : 'Seleccioná...'}</option>
+                          {provincias.map(prov => (
+                            <option key={prov.id} value={prov.nombre}>{prov.nombre}</option>
+                          ))}
+                        </Form.Select>
+                      </Form.Group>
+
+                      <Form.Group as={Col} sm={6} controlId="departamento">
+                        <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Departamento</Form.Label>
+                        <Form.Select 
+                          required 
+                          className="border border-2 border-dark" 
+                          style={{ borderRadius: '8px' }} 
+                          value={formulario.departamento} 
+                          onChange={manejarCambio} 
+                          disabled={!estaLogueado || cargandoEnvio || cargandoDepartamentos || !formulario.provincia}
+                        >
+                          <option value="">{cargandoDepartamentos ? 'Cargando...' : 'Seleccioná...'}</option>
+                          {departamentos.map(depto => (
+                            <option key={depto.id} value={depto.nombre}>{depto.nombre}</option>
+                          ))}
+                        </Form.Select>
                       </Form.Group>
                     </Row>
 
-                    <Form.Group className="mb-3" controlId="ubicacion">
-                      <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Última ubicación conocida</Form.Label>
-                      <Form.Control type="text" placeholder="Barrio, Ciudad, Provincia" required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.ubicacion} onChange={manejarCambio} disabled={cargandoEnvio} />
-                    </Form.Group>
-
                     <Form.Group className="mb-3" controlId="descripcion">
                       <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Descripción física y vestimenta</Form.Label>
-                      <Form.Control as="textarea" rows={4} placeholder="Detalles sobre altura, contextura..." required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.descripcion} onChange={manejarCambio} disabled={cargandoEnvio} />
+                      <Form.Control as="textarea" rows={4} placeholder="Detalles sobre altura, contextura..." required className="border border-2 border-dark" style={{ borderRadius: '8px' }} value={formulario.descripcion} onChange={manejarCambio} disabled={!estaLogueado || cargandoEnvio} />
                     </Form.Group>
 
                     <Form.Group className="mb-4" controlId="foto">
                       <Form.Label className="fw-bold" style={{ color: '#0a2f6b' }}>Subir fotografía</Form.Label>
-                      <Form.Control type="file" accept="image/*" className="border border-2 border-dark" style={{ borderRadius: '8px' }} disabled={cargandoEnvio} />
+                      <Form.Control type="file" accept="image/*" className="border border-2 border-dark" style={{ borderRadius: '8px' }} disabled={!estaLogueado || cargandoEnvio} />
                     </Form.Group>
 
                     <div className="d-grid mt-5">
-                      <Button variant="primary" size="lg" type="submit" disabled={cargandoEnvio} className="rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center border border-2 border-dark" style={{ backgroundColor: '#0a2f6b' }}>
-                        <i className="bi bi-cloud-arrow-up-fill me-2 fs-5"></i> {cargandoEnvio ? 'Enviando...' : 'Publicar Búsqueda'}
+                      <Button variant={estaLogueado ? "primary" : "secondary"} size="lg" type="submit" disabled={!estaLogueado || cargandoEnvio} className="rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center border border-2 border-dark" style={{ backgroundColor: estaLogueado ? '#0a2f6b' : '#6c757d' }}>
+                        <i className={`bi ${estaLogueado ? 'bi-cloud-arrow-up-fill' : 'bi-lock-fill'} me-2 fs-5`}></i> 
+                        {cargandoEnvio ? 'Enviando...' : (estaLogueado ? 'Publicar Búsqueda' : 'Iniciá sesión para publicar')}
                       </Button>
                     </div>
                   </Form>

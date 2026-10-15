@@ -4,7 +4,6 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const API_USUARIOS = import.meta.env.VITE_API_USUARIOS;
-
 const ModalRegistro = ({ show, handleClose }) => {
   const [esLogin, setEsLogin] = useState(true);
   const [mostrarPass, setMostrarPass] = useState(false);
@@ -13,68 +12,73 @@ const ModalRegistro = ({ show, handleClose }) => {
   const [dni, setDni] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const manejarSubmit = async (e) => {
     e.preventDefault();
     setCargando(true);
 
-    try {
-      if (esLogin) {
+    if (esLogin) {
+      try {
         const response = await axios.get(`${API_USUARIOS}?email=${email}`);
         const usuariosEncontrados = response.data;
 
-        if (usuariosEncontrados.length === 0) {
-          Swal.fire({ icon: 'error', title: 'Oops...', text: 'No existe ninguna cuenta con este correo.', confirmButtonColor: '#0a2f6b' });
-          setCargando(false);
-          return;
-        }
-
-        const usuarioDeBaseDeDatos = usuariosEncontrados[0];
-
-        if (usuarioDeBaseDeDatos.password === password) {
+        if (usuariosEncontrados.length > 0 && usuariosEncontrados[0].password === password) {
+          const usuarioDeBaseDeDatos = usuariosEncontrados[0];
           localStorage.setItem('sesionActiva', JSON.stringify(usuarioDeBaseDeDatos));
-
+          
           Swal.fire({ icon: 'success', title: `¡Bienvenido ${usuarioDeBaseDeDatos.nombre}!`, timer: 1500, showConfirmButton: false });
-          setTimeout(() => {
-            handleClose();
-            window.location.reload();
-          }, 1500);
+          setTimeout(() => { handleClose(); window.location.reload(); }, 1500);
         } else {
-          // Contraseña incorrecta
           Swal.fire({ icon: 'error', title: 'Error', text: 'La contraseña es incorrecta.', confirmButtonColor: '#0a2f6b' });
         }
-
-      } else {
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          Swal.fire({ icon: 'error', title: 'Oops...', text: 'No existe ninguna cuenta con este correo.', confirmButtonColor: '#0a2f6b' });
+        } else {
+          Swal.fire({ icon: 'error', title: 'Error de conexión', text: 'No pudimos comunicarnos con el servidor.', confirmButtonColor: '#0a2f6b' });
+        }
+      }
+    } else {
+      let emailLibre = false;
+      try {
         const chequeoEmail = await axios.get(`${API_USUARIOS}?email=${email}`);
         if (chequeoEmail.data.length > 0) {
           Swal.fire({ icon: 'warning', title: 'Cuidado', text: 'Este correo ya está registrado.', confirmButtonColor: '#0a2f6b' });
           setCargando(false);
           return;
         }
-        const nuevoUsuario = {
-          nombre: nombre,
-          dni: dni,
-          email: email,
-          password: password,
-          rol: email.includes('admin') ? 'admin' : 'usuario'
-        };
-        const response = await axios.post(API_USUARIOS, nuevoUsuario);
-        localStorage.setItem('sesionActiva', JSON.stringify(response.data));
-
-        Swal.fire({ icon: 'success', title: '¡Cuenta creada!', text: 'Te registraste exitosamente.', timer: 1500, showConfirmButton: false });
-
-        setTimeout(() => {
-          handleClose();
-          window.location.reload();
-        }, 1500);
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          emailLibre = true;
+        } else {
+          Swal.fire({ icon: 'error', title: 'Error de conexión', text: 'No pudimos comunicarnos con el servidor.', confirmButtonColor: '#0a2f6b' });
+          setCargando(false);
+          return;
+        }
       }
-    } catch (error) {
-      console.error("Error en la conexión con la API:", error);
-      Swal.fire({ icon: 'error', title: 'Error de conexión', text: 'No pudimos comunicarnos con el servidor.', confirmButtonColor: '#0a2f6b' });
-    }
+      if (emailLibre) {
+        try {
+          const nuevoUsuario = {
+            nombre: nombre,
+            dni: dni,
+            email: email,
+            password: password,
+            rol: email.includes('admin') ? 'admin' : 'usuario'
+          };
 
+          const response = await axios.post(API_USUARIOS, nuevoUsuario);
+
+          localStorage.setItem('sesionActiva', JSON.stringify(response.data));
+          
+          Swal.fire({ icon: 'success', title: '¡Cuenta creada!', text: 'Te registraste exitosamente.', timer: 1500, showConfirmButton: false });
+          setTimeout(() => { handleClose(); window.location.reload(); }, 1500);
+        } catch (error) {
+          Swal.fire({ icon: 'error', title: 'Error al registrar', text: 'Hubo un problema al crear tu cuenta.', confirmButtonColor: '#0a2f6b' });
+        }
+      }
+    }
     setCargando(false);
   };
+
   return (
     <Modal show={show} onHide={handleClose} centered backdrop="static">
       <Modal.Header closeButton style={{ backgroundColor: '#e6f2ff', borderBottom: 'none' }}>
@@ -122,7 +126,7 @@ const ModalRegistro = ({ show, handleClose }) => {
               </Button>
             </InputGroup>
           </Form.Group>
-
+          
           <div className="d-flex justify-content-between mt-4">
             <Button variant="outline-danger" onClick={handleClose} type="button" disabled={cargando}>
               Cancelar

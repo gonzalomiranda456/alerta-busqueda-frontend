@@ -52,7 +52,7 @@ const Inicio = () => {
 
         <div className="text-center mb-5 mt-4">
           <h1 className="fw-bolder" style={{ color: '#0a2f6b', fontSize: '2.8rem', textShadow: '1px 1px 2px rgba(0,0,0,0.1)' }}>
-            alrededor 10.000 Argentinos se pierden anualmente <br className="d-none d-md-block" />
+            alrededor de 10.000 Argentinos se pierden anualmente <br className="d-none d-md-block" />
             <span style={{ color: '#00bfff' }}>tu ayuda puede marcar la diferencia.</span>
           </h1>
         </div>

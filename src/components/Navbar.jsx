@@ -11,6 +11,7 @@ const MenuNavegacion = () => {
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+
   useEffect(() => {
     const sesion = localStorage.getItem('sesionActiva');
     if (sesion) {
@@ -23,7 +24,6 @@ const MenuNavegacion = () => {
     setUsuarioLogueado(null);
     window.location.reload();
   };
-
   return (
     <>
       <Navbar bg="white" expand="lg" fixed="top" className="shadow-sm py-3 border-bottom border-3 border-dark">
@@ -34,10 +34,10 @@ const MenuNavegacion = () => {
             <span className="text-dark ms-1">Búsqueda</span>
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="menu-principal" className="border-0 shadow-none" onClick={abrirMenu} />
+          <Navbar.Toggle aria-controls="offcanvasNavbar" className="border-0 shadow-none" onClick={abrirMenu} />
 
-          <Navbar.Collapse id="menu-principal">
-            <Nav className="ms-auto text-center mt-3 mt-lg-0 align-items-center">
+          <div className="d-none d-lg-flex w-100 justify-content-end align-items-center">
+            <Nav className="ms-auto text-center align-items-center">
               <Nav.Link as={Link} to="/" className="nav-link-custom fw-bold px-3 text-dark">Inicio</Nav.Link>
 
               <NavDropdown title="Pages" id="pages-dropdown" className="nav-link-custom fw-bold px-3 text-dark">
@@ -47,6 +47,7 @@ const MenuNavegacion = () => {
               </NavDropdown>
 
               <Nav.Link href="/#preguntas" className="nav-link-custom fw-bold px-3 text-dark">Preguntas generales</Nav.Link>
+
               {usuarioLogueado ? (
                 <NavDropdown
                   title={<span><i className="bi bi-person-circle me-1 text-primary fs-5"></i> Mi Cuenta</span>}
@@ -64,7 +65,6 @@ const MenuNavegacion = () => {
                       <span className="badge bg-danger rounded-pill">Administrador</span>
                     </NavDropdown.ItemText>
                   )}
-
                   <NavDropdown.Divider />
 
                   <NavDropdown.Item onClick={cerrarSesion} className="text-danger fw-bold text-center">
@@ -78,17 +78,21 @@ const MenuNavegacion = () => {
               )}
             </Nav>
 
-            <Link to="/busqueda" className="d-flex justify-content-center align-items-center ms-lg-4 mt-3 mt-lg-0 text-decoration-none">
+            <Link to="/busqueda" className="d-flex justify-content-center align-items-center ms-4 text-decoration-none">
               <i className="bi bi-search fs-4 text-dark search-icon-custom" style={{ cursor: 'pointer', transition: 'transform 0.2s' }} onMouseEnter={(e) => e.target.style.transform = 'scale(1.1)'} onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}></i>
             </Link>
-          </Navbar.Collapse>
+          </div>
         </Container>
-        <ModalRegistro show={showModal} handleClose={handleClose} />
       </Navbar>
 
-      <Offcanvas show={mostrarMenu} onHide={cerrarMenu} placement="start">
+      <ModalRegistro show={showModal} handleClose={handleClose} />
+
+      <Offcanvas show={mostrarMenu} onHide={cerrarMenu} placement="start" id="offcanvasNavbar">
         <Offcanvas.Header closeButton className="border-bottom">
-          <Offcanvas.Title className="text-primary fw-bold">Alerta Búsqueda</Offcanvas.Title>
+          <Offcanvas.Title className="text-primary fw-bold d-flex align-items-center">
+            <img src="/img/Logo_Blanco.png" alt="Logo" width="30" height="30" className="me-2" />
+            Alerta Búsqueda
+          </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column fs-5 gap-3 mt-2">
@@ -98,7 +102,7 @@ const MenuNavegacion = () => {
             <Nav.Link as={Link} to="/busqueda" onClick={cerrarMenu} className="text-dark">
               <i className="bi bi-search text-primary me-2"></i> Búsqueda
             </Nav.Link>
-            <Nav.Link as={Link} to="/registro" onClick={cerrarMenu} className="text-dark">
+            <Nav.Link as={Link} to="/cargar-caso" onClick={cerrarMenu} className="text-dark">
               <i className="bi bi-file-earmark-text text-primary me-2"></i> Registrar búsqueda
             </Nav.Link>
             <Nav.Link as={Link} to="/recibir" onClick={cerrarMenu} className="text-dark">
@@ -106,7 +110,6 @@ const MenuNavegacion = () => {
             </Nav.Link>
 
             <hr className="my-1" />
-
             {usuarioLogueado ? (
               <>
                 <div className="px-3 py-2 bg-light rounded">

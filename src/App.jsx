@@ -4,26 +4,23 @@ import { HelmetProvider } from 'react-helmet-async';
 import MenuNavegacion from './components/Navbar';
 import Footer from './components/Footer';
 import Rutas from './components/Routes/Rutas';
-import ScrollToTop from './components/ScrollToTop';
 
 function App() {
-  return (
-    <HelmetProvider>
-      <Router>
-        <ScrollToTop />
+    return (
+        <HelmetProvider>
+            <Router>
+                <div className="d-flex flex-column min-vh-100">
+                    <MenuNavegacion />
+                    
+                    <main className="flex-grow-1" style={{ paddingTop: '80px' }}>
+                        <Rutas />
+                    </main>
 
-        <div className="d-flex flex-column min-vh-100">
-          <MenuNavegacion />
-
-          <main className="flex-grow-1" style={{ paddingTop: '80px' }}>
-            <Rutas />
-          </main>
-
-          <Footer />
-        </div>
-      </Router>
-    </HelmetProvider>
-  );
+                    <Footer />
+                </div>
+            </Router>
+        </HelmetProvider>
+    );
 }
 
 export default App;

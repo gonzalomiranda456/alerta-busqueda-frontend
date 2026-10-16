@@ -5,16 +5,17 @@ import RegistroDesaparecido from '../../pages/RegistroDesaparecido';
 import Busqueda from '../../pages/Busqueda';
 import Recibir from '../../pages/Recibir';
 
+
 const Rutas = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Inicio />} />
-      <Route path="*" element={<Error404 />} />
-      <Route path="/cargar-caso" element={<RegistroDesaparecido />} />
-      <Route path="/busqueda" element={<Busqueda />} />
-      <Route path="/recibir" element={<Recibir />} />
-    </Routes>
-  );
+    return (
+        <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="*" element={<Error404 />} />
+            <Route path="/cargar-caso" element={<RegistroDesaparecido />} />
+            <Route path="/busqueda" element={<Busqueda />} />
+            <Route path="/recibir" element={<Recibir />} />
+        </Routes>
+    );
 };
 
 export default Rutas;

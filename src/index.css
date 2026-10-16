@@ -17,12 +17,15 @@ html {
     scrollbar-gutter: stable;
 }
 
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
 
 body {
     background-color: #ffffff;
@@ -34,6 +37,7 @@ body {
 
     overflow-x: hidden;
 }
+
 
 .navbar {
     width: 100%;
@@ -54,6 +58,7 @@ body {
     z-index: 1000;
 }
 
+
 .menu-logo-container {
     width: 100%;
     height: 100%;
@@ -63,6 +68,7 @@ body {
     display: flex;
     align-items: center;
 }
+
 
 .btn-menu {
     position: absolute;
@@ -87,6 +93,7 @@ body {
     z-index: 2;
 }
 
+
 .icono-menu {
     font-size: 36px;
 
@@ -95,14 +102,18 @@ body {
     transition: transform 0.3s ease;
 }
 
+
 .icono-menu.girar {
     transform: rotate(90deg);
 }
+
 
 .texto-menu {
     font-size: 22px;
     font-weight: 600;
 }
+
+
 
 .brand {
     position: absolute;
@@ -120,6 +131,7 @@ body {
     padding: 0;
 }
 
+
 .logo-barra {
     width: 350px;
     height: auto;
@@ -131,6 +143,8 @@ body {
     margin: 0;
     padding: 0;
 }
+
+
 
 .menu-lateral {
     position: fixed;
@@ -150,9 +164,11 @@ body {
     z-index: 999;
 }
 
+
 .menu-lateral.abierto {
     left: 0;
 }
+
 
 .menu-lateral ul {
     list-style: none;
@@ -161,11 +177,13 @@ body {
     margin: 0;
 }
 
+
 .menu-lateral ul li {
     padding: 15px 20px;
 
     border-bottom: 1px solid #dddddd;
 }
+
 
 .menu-lateral ul li a {
     text-decoration: none;
@@ -199,6 +217,7 @@ body {
     color: var(--color-azul);
 }
 
+
 .contenido-central {
     width: 100%;
     height: 70vh;
@@ -214,6 +233,7 @@ body {
     position: relative;
 }
 
+
 .contenido-central::after {
     content: "";
 
@@ -228,6 +248,7 @@ body {
     background: rgba(20, 50, 120, 0.30);
 }
 
+
 .logo-central {
     width: 100%;
     height: 100%;
@@ -237,6 +258,8 @@ body {
 
     display: block;
 }
+
+
 
 .seccion-casos {
     padding: 50px 20px;
@@ -252,6 +275,7 @@ body {
 
     justify-items: center;
 }
+
 
 .ficha-caso {
     text-decoration: none;
@@ -271,11 +295,13 @@ body {
     transition: transform 0.2s;
 }
 
+
 .ficha-caso:hover {
     transform: translateY(-5px);
 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
+
 
 .ficha-caso img {
     width: 100%;
@@ -286,6 +312,7 @@ body {
     background-color: #dddddd;
 }
 
+
 .info-ficha {
     padding: 15px;
 
@@ -293,6 +320,7 @@ body {
 
     font-size: 14px;
 }
+
 
 .footer-oscuro {
     background-color: #1a1a1a;
@@ -304,6 +332,7 @@ body {
     padding: 40px 20px;
 }
 
+
 .footer-oscuro p {
     margin: 5px 0;
 
@@ -311,6 +340,8 @@ body {
 
     color: #cccccc;
 }
+
+
 
 .contenedor-buscador {
     background-color: #f4f4f4;
@@ -322,6 +353,7 @@ body {
 
     border-bottom: 1px solid #dddddd;
 }
+
 
 #input-buscador {
     width: 100%;
@@ -341,6 +373,7 @@ body {
 
     transition: border-color 0.3s;
 }
+
 
 #input-buscador:focus {
     border-color: var(--color-azul);
@@ -363,6 +396,7 @@ body {
     color: white;
 }
 
+
 .contenido-hero h1 {
     font-size: 42px;
     font-weight: 700;
@@ -371,6 +405,7 @@ body {
 
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
 }
+
 
 .contenido-hero .texto-hero {
     color: #D1D5DB;
@@ -390,6 +425,7 @@ body {
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
 }
 
+
 .titulo-hero {
     color: #364152;
 
@@ -405,6 +441,7 @@ body {
         0 1px 2px rgba(255, 255, 255, 0.85),
         0 3px 7px rgba(0, 0, 0, 0.35);
 }
+
 
 .texto-hero {
     color: #f1f3f5;
@@ -434,6 +471,7 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
 
+
 .buscador-inicio input {
     flex: 1;
 
@@ -446,6 +484,7 @@ body {
 
     background: transparent;
 }
+
 
 .buscador-inicio button {
     border: none;
@@ -463,9 +502,11 @@ body {
     cursor: pointer;
 }
 
+
 .buscador-inicio button:hover {
     background-color: #173295;
 }
+
 
 .beneficios-inicio {
     width: 100%;
@@ -480,6 +521,7 @@ body {
     padding: 35px 8%;
 }
 
+
 .beneficio {
     padding: 10px 35px;
 
@@ -492,6 +534,7 @@ body {
 .beneficio:last-child {
     border-right: none;
 }
+
 
 .icono-beneficio {
     width: 55px;
@@ -512,6 +555,7 @@ body {
     font-weight: bold;
 }
 
+
 .beneficio h2 {
     color: #1f3fb4;
 
@@ -520,6 +564,7 @@ body {
 
     margin-bottom: 8px;
 }
+
 
 .beneficio p {
     color: #555555;
@@ -662,9 +707,50 @@ body {
 }
 */
 
-html, body {
-  overflow-x: hidden;
-  width: 100%;
+.tarjeta-beneficio {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  background-color: transparent;
+}
+
+.tarjeta-beneficio:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(17, 0, 255, 0.527);
+  background-color: #ffffff;
+}
+
+.tarjeta-animada {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tarjeta-animada:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(17, 0, 255, 0.527) !important;
+}
+
+.titulo-inicio {
+  font-family: "Montserrat", sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: #0a2f6b;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  text-shadow: 0 2px 6px rgba(255, 255, 255, 0.85);
+}
+
+.subtitulo-inicio {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #0a2f6b;
+  line-height: 1.4;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
 }
 
 body {
@@ -694,8 +780,4 @@ body {
 
 h1, h2, h3, h4, h5, h6, .modal-title, .navbar-brand {
   font-family: var(--fuente-titulos);
-}
-
-#preguntas {
-  scroll-margin-top: 150px; 
 }

@@ -5,7 +5,6 @@ import RegistroDesaparecido from '../../pages/RegistroDesaparecido';
 import Busqueda from '../../pages/Busqueda';
 import Recibir from '../../pages/Recibir';
 
-
 const Rutas = () => {
   return (
     <Routes>
